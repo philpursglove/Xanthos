@@ -19,5 +19,27 @@ namespace XanthosCodeTest.Tests
             bool result = checker.CheckNumberOfElementsInName(name);
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [TestCase("Jules Gabriel Verne", true)]
+        [TestCase("J. G. V.", false)]
+        [TestCase("Jules Verne", true)]
+        [TestCase("Jules V", false)]
+        public void Last_Name_Must_Not_Be_An_Initial(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckLastNameHasMultipleCharacters(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("J. G. Verne", true)]
+        [TestCase("j. G. Verne", false)]
+        [TestCase("J. g. Verne", false)]
+        [TestCase("J. G. verne", false)]
+        public void All_Leading_Letters_Must_Be_Capitalised(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckAllLeadingCharactersAreCapitalised(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }
