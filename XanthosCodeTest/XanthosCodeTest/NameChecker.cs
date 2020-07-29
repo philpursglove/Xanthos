@@ -44,5 +44,31 @@ namespace XanthosCodeTest
 
             return true;
         }
+
+        public bool CheckInitialsAreSuffixedWithAPeriod(string name)
+        {
+            SplitNameIntoElements(name);
+
+            string firstName;
+            string middleName;
+            firstName = Elements.First();
+            if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
+
+            middleName = Elements.Skip(1).Take(1).ToString();
+
+            if (!CheckNameElementForLengthAndPeriodSuffix(middleName)) return false;
+                
+            return true;
+        }
+
+        private bool CheckNameElementForLengthAndPeriodSuffix(string name)
+        {
+            if (name.Length == 1 || name.Length == 2 && !name.EndsWith("."))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

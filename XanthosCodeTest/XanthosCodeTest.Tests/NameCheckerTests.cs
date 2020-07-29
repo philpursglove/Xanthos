@@ -41,5 +41,14 @@ namespace XanthosCodeTest.Tests
             bool result = checker.CheckAllLeadingCharactersAreCapitalised(name);
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [TestCase("J G Verne", false)]
+        [TestCase("J. G. Verne", true)]
+        public void Initials_Must_Be_Suffixed_With_A_Period(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckInitialsAreSuffixedWithAPeriod(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }
