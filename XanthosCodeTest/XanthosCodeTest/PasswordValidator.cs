@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace XanthosCodeTest
@@ -22,6 +23,28 @@ namespace XanthosCodeTest
         public bool CheckForNumber(string password)
         {
             return password.Any(char.IsNumber);
+        }
+
+        public bool CheckForRepeatedCharacters(string password)
+        {
+            IEnumerable<char> letters = password.Distinct();
+
+            foreach (char letter in letters)
+            {
+                string repeatedLetter = (new string(letter, 3));
+                if (password.Contains(repeatedLetter))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckPassword(string password)
+        {
+            return CheckLength(password) && CheckForUpperCase(password) && CheckForLowerCase(password) &&
+                   CheckForNumber(password) && !CheckForRepeatedCharacters(password);
         }
     }
 }

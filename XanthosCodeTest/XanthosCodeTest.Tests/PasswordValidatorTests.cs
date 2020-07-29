@@ -57,5 +57,29 @@ namespace XanthosCodeTest.Tests
             bool result = checker.CheckForNumber(password);
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        // No strings of three characters
+        [TestCase("aabbccddee", false)]
+        // One string of three repeated characters
+        [TestCase("aaabbccddee", true)]
+        [TestCase("aabbccdddee", true)]
+        public void Password_Must_Not_Contain_A_Contiguous_String_Of_Three_Or_More_Of_The_Same_Character(string password, bool expected)
+        {
+            PasswordValidator checker = new PasswordValidator();
+            bool result = checker.CheckForRepeatedCharacters(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("A1bcdef", true)]
+        [TestCase("AAA1bcdef", false)]
+        [TestCase("abcdefg", false)]
+        [TestCase("ABCDEFG", false)]
+        [TestCase("1234567", false)]
+        public void Password_Is_Valid(string password, bool expected)
+        {
+            PasswordValidator checker = new PasswordValidator();
+            bool result = checker.CheckPassword(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }
