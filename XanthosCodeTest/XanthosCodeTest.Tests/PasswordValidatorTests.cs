@@ -4,6 +4,14 @@ namespace XanthosCodeTest.Tests
 {
     public class PasswordValidatorTests
     {
+        private PasswordValidator checker;
+
+        [SetUp]
+        public void Setup()
+        {
+            checker = new PasswordValidator();
+        }
+
         // Six
         [TestCase("abcdef", true)]
         // Five
@@ -14,7 +22,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("abcdefghijklmnopqrstuwvx", true)]
         public void Password_Must_Be_Between_Six_And_TwentyFour_Characters(string password, bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckLength(password);
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -27,7 +34,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("Abcde", true)]
         public void Password_Must_Contain_At_Least_One_Uppercase_Letter(string password, bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForUpperCase(password);
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -40,7 +46,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("aBCDE", true)]
         public void Password_Must_Contain_At_Least_One_Lowercase_Letter(string password, bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForLowerCase(password);
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -53,7 +58,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("123456", true)]
         public void Password_Must_Contain_One_Number(string password,bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForNumber(password);
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -65,7 +69,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("aabbccdddee", true)]
         public void Password_Must_Not_Contain_A_Contiguous_String_Of_Three_Or_More_Of_The_Same_Character(string password, bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForRepeatedCharacters(password);
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -77,7 +80,6 @@ namespace XanthosCodeTest.Tests
         [TestCase("1234567", false)]
         public void Password_Is_Valid(string password, bool expected)
         {
-            PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckPassword(password);
             Assert.That(result, Is.EqualTo(expected));
         }
