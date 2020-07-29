@@ -18,5 +18,14 @@ namespace XanthosCodeTest.Tests
             bool result = checker.CheckLength(password);
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        // All lower
+        [TestCase("abcde", false)]
+        public void Password_Must_Contain_At_Least_Uppercase_Letter(string password, bool expected)
+        {
+            PasswordValidator checker = new PasswordValidator();
+            bool result = checker.CheckForUpperCase(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }

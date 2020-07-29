@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace XanthosCodeTest
 {
@@ -7,6 +8,11 @@ namespace XanthosCodeTest
         public bool CheckLength(string password)
         {
             return password.Length > 5 && password.Length < 25;
+        }
+
+        public bool CheckForUpperCase(string password)
+        {
+            return password.Any(char.IsUpper);
         }
     }
 }
