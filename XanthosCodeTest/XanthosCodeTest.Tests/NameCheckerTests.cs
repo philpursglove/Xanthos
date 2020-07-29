@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace XanthosCodeTest.Tests
 {
@@ -48,6 +45,46 @@ namespace XanthosCodeTest.Tests
         {
             NameChecker checker = new NameChecker();
             bool result = checker.CheckInitialsAreSuffixedWithAPeriod(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("Jules Gabriel Verne", true)]
+        [TestCase("Jules. Gabriel. Verne", false)]
+        public void Names_Must_Not_Be_Suffixed_With_A_Period(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckNamesAreNotSuffixedWithAPeriod(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("Jules Gabriel Verne", true)]
+        [TestCase("J. Gabriel Verne", false)]
+        [TestCase("Jules G. Verne", true)]
+        public void Names_Must_Be_Expanded_Correctly(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckNamesAreExpandedCorrectly(name);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("H. Wells", true)]
+        [TestCase("H. G. Wells", true)]
+        [TestCase("Herbert G. Wells", true)]
+        [TestCase("Herbert George Wells", true)]
+        [TestCase("Herbert", false)]
+        [TestCase("Wells", false)]
+        [TestCase("H Wells", false)]
+        [TestCase("H. G Wells", false)]
+        [TestCase("h. Wells", false)]
+        [TestCase("H. wells", false)]
+        [TestCase("h. g. Wells", false)]
+        [TestCase("H. George Wells", false)]
+        [TestCase("H. G. W.", false)]
+        [TestCase("Herb. G. Wells", false)]
+        public void Name_Is_Valid(string name, bool expected)
+        {
+            NameChecker checker = new NameChecker();
+            bool result = checker.CheckNameIsValid(name);
             Assert.That(result, Is.EqualTo(expected));
         }
     }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace XanthosCodeTest
 {
@@ -63,12 +61,59 @@ namespace XanthosCodeTest
 
         private bool CheckNameElementForLengthAndPeriodSuffix(string name)
         {
-            if (name.Length == 1 || name.Length == 2 && !name.EndsWith("."))
+            // If your name (or the name you *use*) has two letters, you'll fail this.
+            // I don't make the rules.
+            // Bad luck, Ed Sheeran. 
+            // https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
+            if (name.Length == 1 || name.Length == 2) 
             {
-                return false;
+                if (!name.EndsWith(".")) return false;
+            }
+            else
+            {
+                if (name.EndsWith(".")) return false;
             }
 
             return true;
+        }
+
+        public bool CheckNamesAreNotSuffixedWithAPeriod(string name)
+        {
+            SplitNameIntoElements(name);
+
+            string firstName;
+            string middleName;
+            firstName = Elements.First();
+            if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
+
+            middleName = Elements.Skip(1).Take(1).First();
+
+            if (!CheckNameElementForLengthAndPeriodSuffix(middleName)) return false;
+                
+            return true;
+        }
+
+        public bool CheckNamesAreExpandedCorrectly(string name)
+        {
+            SplitNameIntoElements(name);
+
+            if (Elements.Count() == 3)
+            {
+                string firstName;
+                string middleName;
+                firstName = Elements.First();
+                middleName = Elements.Skip(1).Take(1).First();
+                if (firstName.Length == 2 && middleName.Length != 2) return false;
+            }
+
+            return true;
+        }
+
+        public bool CheckNameIsValid(string name)
+        {
+            return CheckNumberOfElementsInName(name) && CheckLastNameHasMultipleCharacters(name) &&
+                   CheckInitialsAreSuffixedWithAPeriod(name) && CheckAllLeadingCharactersAreCapitalised(name) &&
+                   CheckNamesAreNotSuffixedWithAPeriod(name) && CheckNamesAreExpandedCorrectly(name);
         }
     }
 }
