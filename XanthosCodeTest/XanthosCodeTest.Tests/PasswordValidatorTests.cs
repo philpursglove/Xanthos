@@ -21,10 +21,27 @@ namespace XanthosCodeTest.Tests
 
         // All lower
         [TestCase("abcde", false)]
-        public void Password_Must_Contain_At_Least_Uppercase_Letter(string password, bool expected)
+        // All upper
+        [TestCase("ABCDE", true)]
+        // One upper
+        [TestCase("Abcde", true)]
+        public void Password_Must_Contain_At_Least_One_Uppercase_Letter(string password, bool expected)
         {
             PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForUpperCase(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        // All lower
+        [TestCase("abcde", false)]
+        // All upper
+        [TestCase("ABCDE", true)]
+        // One upper
+        [TestCase("Abcde", true)]
+        public void Password_Must_Contain_At_Least_One_Lowercase_Letter(string password, bool expected)
+        {
+            PasswordValidator checker = new PasswordValidator();
+            bool result = checker.CheckForLowerCase(password);
             Assert.That(result, Is.EqualTo(expected));
         }
     }

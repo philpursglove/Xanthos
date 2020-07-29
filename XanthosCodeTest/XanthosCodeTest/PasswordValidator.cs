@@ -14,5 +14,9 @@ namespace XanthosCodeTest
         {
             return password.Any(char.IsUpper);
         }
+        public bool CheckForLowerCase(string password)
+        {
+            return password.Any(char.IsLower);
+        }
     }
 }
