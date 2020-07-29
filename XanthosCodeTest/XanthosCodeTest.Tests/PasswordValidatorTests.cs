@@ -83,5 +83,13 @@ namespace XanthosCodeTest.Tests
             bool result = checker.CheckPassword(password);
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [TestCase("abcdef`", false)]
+        [TestCase("!@#$%^&*()+=_-{}[]:;\"'?<>,.", true)]
+        public void Check_For_Allowed_Special_Characters(string password, bool expected)
+        {
+            bool result = checker.CheckForSpecialCharacters(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }

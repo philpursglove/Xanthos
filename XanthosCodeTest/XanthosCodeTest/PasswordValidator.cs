@@ -44,7 +44,25 @@ namespace XanthosCodeTest
         public bool CheckPassword(string password)
         {
             return CheckLength(password) && CheckForUpperCase(password) && CheckForLowerCase(password) &&
-                   CheckForNumber(password) && !CheckForRepeatedCharacters(password);
+                   CheckForNumber(password) && !CheckForRepeatedCharacters(password) && CheckForSpecialCharacters(password);
+        }
+
+        public bool CheckForSpecialCharacters(string password)
+        {
+            string specialCharacters = "!@#$%^&*()+=_-{}[]:;\"'?<>,.";
+
+            foreach (char character in password)
+            {
+                if (!char.IsLetterOrDigit(character))
+                {
+                    if (!specialCharacters.Contains(character))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
