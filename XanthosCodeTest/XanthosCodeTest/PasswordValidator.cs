@@ -18,5 +18,10 @@ namespace XanthosCodeTest
         {
             return password.Any(char.IsLower);
         }
+
+        public bool CheckForNumber(string password)
+        {
+            return password.Any(char.IsNumber);
+        }
     }
 }

@@ -33,15 +33,28 @@ namespace XanthosCodeTest.Tests
         }
 
         // All lower
-        [TestCase("abcde", false)]
+        [TestCase("abcde", true)]
         // All upper
-        [TestCase("ABCDE", true)]
-        // One upper
-        [TestCase("Abcde", true)]
+        [TestCase("ABCDE", false)]
+        // One lower
+        [TestCase("aBCDE", true)]
         public void Password_Must_Contain_At_Least_One_Lowercase_Letter(string password, bool expected)
         {
             PasswordValidator checker = new PasswordValidator();
             bool result = checker.CheckForLowerCase(password);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        // No numbers
+        [TestCase("abcde", false)]
+        // One number
+        [TestCase("abcde1", true)]
+        // All numbers
+        [TestCase("123456", true)]
+        public void Password_Must_Contain_One_Number(string password,bool expected)
+        {
+            PasswordValidator checker = new PasswordValidator();
+            bool result = checker.CheckForNumber(password);
             Assert.That(result, Is.EqualTo(expected));
         }
     }
