@@ -32,27 +32,17 @@ namespace XanthosCodeTest
         {
             SplitNameIntoElements(name);
 
-            foreach (string element in Elements)
-            {
-                if (char.IsLower(element.First()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return Elements.All(element => !char.IsLower(element.First()));
         }
 
         public bool CheckInitialsAreSuffixedWithAPeriod(string name)
         {
             SplitNameIntoElements(name);
 
-            string firstName;
-            string middleName;
-            firstName = Elements.First();
+            string firstName = Elements.First();
             if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
 
-            middleName = Elements.Skip(1).Take(1).ToString();
+            string middleName = Elements.Skip(1).Take(1).ToString();
 
             if (!CheckNameElementForLengthAndPeriodSuffix(middleName)) return false;
                 
@@ -61,10 +51,6 @@ namespace XanthosCodeTest
 
         private bool CheckNameElementForLengthAndPeriodSuffix(string name)
         {
-            // If your name (or the name you *use*) has two letters, you'll fail this.
-            // I don't make the rules.
-            // Bad luck, Ed Sheeran. 
-            // https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
             if (name.Length == 1 || name.Length == 2) 
             {
                 if (!name.EndsWith(".")) return false;
@@ -81,12 +67,10 @@ namespace XanthosCodeTest
         {
             SplitNameIntoElements(name);
 
-            string firstName;
-            string middleName;
-            firstName = Elements.First();
+            string firstName = Elements.First();
             if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
 
-            middleName = Elements.Skip(1).Take(1).First();
+            string middleName = Elements.Skip(1).Take(1).First();
 
             if (!CheckNameElementForLengthAndPeriodSuffix(middleName)) return false;
                 
@@ -99,10 +83,8 @@ namespace XanthosCodeTest
 
             if (Elements.Count() == 3)
             {
-                string firstName;
-                string middleName;
-                firstName = Elements.First();
-                middleName = Elements.Skip(1).Take(1).First();
+                string firstName = Elements.First();
+                string middleName = Elements.Skip(1).Take(1).First();
                 if (firstName.Length == 2 && middleName.Length != 2) return false;
             }
 

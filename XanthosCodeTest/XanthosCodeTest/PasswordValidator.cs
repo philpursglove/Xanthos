@@ -14,6 +14,7 @@ namespace XanthosCodeTest
         {
             return password.Any(char.IsUpper);
         }
+
         public bool CheckForLowerCase(string password)
         {
             return password.Any(char.IsLower);
@@ -28,16 +29,7 @@ namespace XanthosCodeTest
         {
             IEnumerable<char> letters = password.Distinct();
 
-            foreach (char letter in letters)
-            {
-                string repeatedLetter = (new string(letter, 3));
-                if (password.Contains(repeatedLetter))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return letters.Select(letter => (new string(letter, 3))).Any(repeatedLetter => password.Contains(repeatedLetter));
         }
 
         public bool CheckPassword(string password)
@@ -50,18 +42,7 @@ namespace XanthosCodeTest
         {
             string specialCharacters = "!@#$%^&*()+=_-{}[]:;\"'?<>,.";
 
-            foreach (char character in password)
-            {
-                if (!char.IsLetterOrDigit(character))
-                {
-                    if (!specialCharacters.Contains(character))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
+            return password.Where(character => !char.IsLetterOrDigit(character)).All(character => specialCharacters.Contains(character));
         }
     }
 }
