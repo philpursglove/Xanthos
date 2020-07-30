@@ -5,14 +5,6 @@ namespace XanthosCodeTest.Tests
     [TestFixture]
     public class NameCheckerTests
     {
-        private NameChecker checker;
-
-        [SetUp]
-        public void Setup()
-        {
-            checker = new NameChecker();
-        }
-
         [TestCase("Jules Gabriel Verne", true)]
         [TestCase("J G Verne", true)]
         [TestCase("Jules Verne", true)]
@@ -20,7 +12,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("M. Jules Gabriel Verne", false)]
         public void Name_Must_Contain_Two_Or_Three_Elements(string name, bool expected)
         {
-            bool result = checker.CheckNumberOfElementsInName(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckNumberOfElementsInName();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -30,7 +23,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("Jules V", false)]
         public void Last_Name_Must_Not_Be_An_Initial(string name, bool expected)
         {
-            bool result = checker.CheckLastNameHasMultipleCharacters(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckLastNameHasMultipleCharacters();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -40,7 +34,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("J. G. verne", false)]
         public void All_Leading_Letters_Must_Be_Capitalised(string name, bool expected)
         {
-            bool result = checker.CheckAllLeadingCharactersAreCapitalised(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckAllLeadingCharactersAreCapitalised();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -48,7 +43,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("J. G. Verne", true)]
         public void Initials_Must_Be_Suffixed_With_A_Period(string name, bool expected)
         {
-            bool result = checker.CheckInitialsAreSuffixedWithAPeriod(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckInitialsAreSuffixedWithAPeriod();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -56,7 +52,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("Jules. Gabriel. Verne", false)]
         public void Names_Must_Not_Be_Suffixed_With_A_Period(string name, bool expected)
         {
-            bool result = checker.CheckNamesAreNotSuffixedWithAPeriod(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckNamesAreNotSuffixedWithAPeriod();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -65,7 +62,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("Jules G. Verne", true)]
         public void Names_Must_Be_Expanded_Correctly(string name, bool expected)
         {
-            bool result = checker.CheckNamesAreExpandedCorrectly(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckNamesAreExpandedCorrectly();
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -85,7 +83,8 @@ namespace XanthosCodeTest.Tests
         [TestCase("Herb. G. Wells", false)]
         public void Name_Is_Valid(string name, bool expected)
         {
-            bool result = checker.CheckNameIsValid(name);
+            NameChecker checker = new NameChecker(name);
+            bool result = checker.CheckNameIsValid();
             Assert.That(result, Is.EqualTo(expected));
         }
     }
