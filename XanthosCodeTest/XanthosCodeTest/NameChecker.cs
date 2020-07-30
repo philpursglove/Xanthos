@@ -5,12 +5,15 @@ namespace XanthosCodeTest
 {
     public class NameChecker
     {
-        public IEnumerable<string> Elements { get; set; }
-
-        public bool CheckNumberOfElementsInName(string name)
+        public NameChecker(string name)
         {
             SplitNameIntoElements(name);
+        }
 
+        public IEnumerable<string> Elements { get; set; }
+
+        public bool CheckNumberOfElementsInName()
+        {
             return Elements.Count() == 2 || Elements.Count() == 3;
         }
 
@@ -19,26 +22,20 @@ namespace XanthosCodeTest
             Elements = name.Split(' ');
         }
 
-        public bool CheckLastNameHasMultipleCharacters(string name)
+        public bool CheckLastNameHasMultipleCharacters()
         {
-            SplitNameIntoElements(name);
-
             string familyname = Elements.Last().Replace(".", "");
 
             return familyname.Length > 1;
         }
 
-        public bool CheckAllLeadingCharactersAreCapitalised(string name)
+        public bool CheckAllLeadingCharactersAreCapitalised()
         {
-            SplitNameIntoElements(name);
-
             return Elements.All(element => !char.IsLower(element.First()));
         }
 
-        public bool CheckInitialsAreSuffixedWithAPeriod(string name)
+        public bool CheckInitialsAreSuffixedWithAPeriod()
         {
-            SplitNameIntoElements(name);
-
             string firstName = Elements.First();
             if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
 
@@ -63,10 +60,8 @@ namespace XanthosCodeTest
             return true;
         }
 
-        public bool CheckNamesAreNotSuffixedWithAPeriod(string name)
+        public bool CheckNamesAreNotSuffixedWithAPeriod()
         {
-            SplitNameIntoElements(name);
-
             string firstName = Elements.First();
             if (!CheckNameElementForLengthAndPeriodSuffix(firstName)) return false;
 
@@ -77,10 +72,8 @@ namespace XanthosCodeTest
             return true;
         }
 
-        public bool CheckNamesAreExpandedCorrectly(string name)
+        public bool CheckNamesAreExpandedCorrectly()
         {
-            SplitNameIntoElements(name);
-
             if (Elements.Count() == 3)
             {
                 string firstName = Elements.First();
@@ -91,11 +84,11 @@ namespace XanthosCodeTest
             return true;
         }
 
-        public bool CheckNameIsValid(string name)
+        public bool CheckNameIsValid()
         {
-            return CheckNumberOfElementsInName(name) && CheckLastNameHasMultipleCharacters(name) &&
-                   CheckInitialsAreSuffixedWithAPeriod(name) && CheckAllLeadingCharactersAreCapitalised(name) &&
-                   CheckNamesAreNotSuffixedWithAPeriod(name) && CheckNamesAreExpandedCorrectly(name);
+            return CheckNumberOfElementsInName() && CheckLastNameHasMultipleCharacters() &&
+                   CheckInitialsAreSuffixedWithAPeriod() && CheckAllLeadingCharactersAreCapitalised() &&
+                   CheckNamesAreNotSuffixedWithAPeriod() && CheckNamesAreExpandedCorrectly();
         }
     }
 }
