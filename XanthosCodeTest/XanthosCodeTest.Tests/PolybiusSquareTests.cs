@@ -44,5 +44,18 @@ namespace XanthosCodeTest.Tests
             string result = square.Decrypt("21422415331443");
             Assert.That(result, Is.EqualTo("FRIENDS"));
         }
+
+        [Test]
+        public void End_To_End_Test()
+        {
+            // If we encrypt and then decrypt a string, we should be left with the original string
+            string word = "HELLO";
+
+            string encryptedWord = square.Encrypt(word);
+
+            string decryptedWord = square.Decrypt(encryptedWord);
+
+            Assert.That(decryptedWord, Is.EqualTo(word));
+        }
     }
 }
